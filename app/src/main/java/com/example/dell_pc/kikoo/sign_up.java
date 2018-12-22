@@ -13,6 +13,7 @@ import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.functions.Consumer;
 import io.reactivex.schedulers.Schedulers;
+import retrofit2.Retrofit;
 
 public class sign_up extends AppCompatActivity {
 
@@ -28,8 +29,8 @@ public class sign_up extends AppCompatActivity {
     public Button but3;
 
     CompositeDisposable compositeDisposable = new CompositeDisposable();
-    RetrofitInterface retrofitInterface;
-
+    Retrofit retrofit = RetrofitClient.getInstance();
+    RetrofitInterface retrofitInterface = retrofit.create(RetrofitInterface.class);
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -92,6 +93,7 @@ public class sign_up extends AppCompatActivity {
         compositeDisposable.add(retrofitInterface.registerUser(RCode,CName,PName,DOB,Pincode,Email,Mobile,Password)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
+                .doOnError(error -> System.err.println("The error message is: " + error.getMessage()))
                 .subscribe(new Consumer<String>() {
                     @Override
                     public void accept(String response) throws Exception {

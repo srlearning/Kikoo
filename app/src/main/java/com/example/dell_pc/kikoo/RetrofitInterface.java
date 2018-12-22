@@ -8,7 +8,7 @@ import retrofit2.http.POST;
 
 public interface RetrofitInterface {
 
-    @POST("/signup")
+    @POST("/user/signup")
     @FormUrlEncoded
     Observable<String> registerUser (@Field("RCode") String RCode,
                                      @Field("CName") String CName,
