@@ -19,7 +19,7 @@ public interface RetrofitInterface {
                                      @Field("Mobile") String Mobile,
                                      @Field("Password") String Password);
 
-    @POST("/login")
+    @POST("/user/login")
     @FormUrlEncoded
     Observable<String> loginUser (   @Field("Email") String Email,
                                      @Field("Password") String Password);
